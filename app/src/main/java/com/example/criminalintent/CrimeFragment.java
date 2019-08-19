@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.criminalintent.entities.Crime;
 
+import java.text.DateFormat;
+
 public class CrimeFragment extends Fragment {
 
     private Crime mCrime;
@@ -61,7 +63,7 @@ public class CrimeFragment extends Fragment {
         });
 
         mDateButton = view.findViewById(R.id.crime_date);
-        mDateButton.setText(mCrime.getDate().toString());
+        mDateButton.setText(DateFormat.getDateInstance().format(mCrime.getDate()));
         mDateButton.setEnabled(false);
 
         mSolvedCheckBox = view.findViewById(R.id.crime_solved);

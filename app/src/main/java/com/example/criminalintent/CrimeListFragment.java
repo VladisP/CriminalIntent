@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.criminalintent.entities.Crime;
 
+import java.text.DateFormat;
 import java.util.List;
 
 public class CrimeListFragment extends Fragment {
@@ -42,7 +43,7 @@ public class CrimeListFragment extends Fragment {
         public void bind(Crime crime) {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
+            mDateTextView.setText(DateFormat.getDateInstance().format(mCrime.getDate()));
             mSolvedImageView.setImageResource(crime.isSolved() ? R.drawable.ic_smile_man_green_24dp : R.drawable.ic_sad_man_red_24dp);
         }
 
