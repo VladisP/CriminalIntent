@@ -50,6 +50,9 @@ public class CrimeListFragment extends Fragment {
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
 
+        private static final int DEFAULT_TYPE = 0;
+        private static final int POLICE_TYPE = 1;
+
         private List<Crime> mCrimes;
 
         public CrimeAdapter(List<Crime> crimes) {
@@ -60,7 +63,17 @@ public class CrimeListFragment extends Fragment {
         @Override
         public CrimeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            View view = layoutInflater.inflate(R.layout.list_item_crime, parent, false);
+            View view;
+
+            switch (viewType) {
+                case POLICE_TYPE:
+                    view = layoutInflater.inflate(R.layout.list_police_item_crime, parent, false);
+                    break;
+                case DEFAULT_TYPE:
+                default:
+                    view = layoutInflater.inflate(R.layout.list_default_item_crime, parent, false);
+            }
+
             return new CrimeHolder(view);
         }
 
@@ -73,6 +86,11 @@ public class CrimeListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mCrimes.size();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return (mCrimes.get(position).isRequiresPolice()) ? POLICE_TYPE : DEFAULT_TYPE;
         }
     }
 
