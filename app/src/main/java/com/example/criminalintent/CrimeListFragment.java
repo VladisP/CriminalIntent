@@ -1,6 +1,5 @@
 package com.example.criminalintent;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,8 +20,6 @@ import java.text.DateFormat;
 import java.util.List;
 
 public class CrimeListFragment extends Fragment {
-
-    private static final int REQUEST_CODE_POSITION = 0;
 
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
@@ -57,8 +54,8 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId(), mCurrentPosition);
-            startActivityForResult(intent, REQUEST_CODE_POSITION);
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCurrentPosition);
+            startActivity(intent);
         }
     }
 
@@ -119,18 +116,12 @@ public class CrimeListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mCrimeRecyclerView = view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        updateUI();
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_POSITION) {
-            if (resultCode == Activity.RESULT_OK) {
-                if (data != null) {
-                    updateUI(CrimeActivity.getCrimePosition(data));
-                }
-            }
-        }
+    public void onResume() {
+        super.onResume();
+        updateUI();
     }
 
     private void updateUI() {
@@ -139,12 +130,8 @@ public class CrimeListFragment extends Fragment {
             List<Crime> crimes = crimeLab.getCrimes();
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
-        }
-    }
-
-    private void updateUI(int position) {
-        if (position != -1) {
-            mAdapter.notifyItemChanged(position);
+        } else {
+            mAdapter.notifyDataSetChanged();
         }
     }
 }
