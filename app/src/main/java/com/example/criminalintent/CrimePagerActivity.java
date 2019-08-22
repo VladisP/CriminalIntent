@@ -60,6 +60,12 @@ public class CrimePagerActivity extends AppCompatActivity {
             public int getCount() {
                 return crimes.size();
             }
+
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return crimes.get(position).getTitle();
+            }
         });
 
         mViewPager.setCurrentItem(mPosition);
