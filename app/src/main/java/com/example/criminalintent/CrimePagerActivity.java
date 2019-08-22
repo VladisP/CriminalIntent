@@ -18,6 +18,7 @@ import java.util.List;
 public class CrimePagerActivity extends AppCompatActivity {
 
     private static final String EXTRA_POSITION = "com.example.criminalintent.position";
+    private static final String KEY_POSITION = "position";
 
     public static Intent newIntent(Context packageContext, int position) {
         Intent intent = new Intent(packageContext, CrimePagerActivity.class);
@@ -25,21 +26,30 @@ public class CrimePagerActivity extends AppCompatActivity {
         return intent;
     }
 
+    private ViewPager mViewPager;
+    private int mPosition;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crime_pager);
+
+        mPosition = getIntent().getIntExtra(EXTRA_POSITION, 0);
+
+        if (savedInstanceState != null) {
+            mPosition = savedInstanceState.getInt(KEY_POSITION, 0);
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        ViewPager viewPager = findViewById(R.id.crime_view_pager);
+        mViewPager = findViewById(R.id.crime_view_pager);
         final List<Crime> crimes = CrimeLab.get(this).getCrimes();
         FragmentManager fragmentManager = getSupportFragmentManager();
 
-        viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
                 Crime crime = crimes.get(position);
@@ -52,6 +62,12 @@ public class CrimePagerActivity extends AppCompatActivity {
             }
         });
 
-        viewPager.setCurrentItem(getIntent().getIntExtra(EXTRA_POSITION, 0));
+        mViewPager.setCurrentItem(mPosition);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_POSITION, mViewPager.getCurrentItem());
     }
 }
