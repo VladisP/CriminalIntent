@@ -15,7 +15,7 @@ import com.example.criminalintent.entities.Crime;
 
 import java.util.List;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity implements CrimeFragment.PagerListener {
 
     private static final String EXTRA_POSITION = "com.example.criminalintent.position";
     private static final String KEY_POSITION = "position";
@@ -27,6 +27,7 @@ public class CrimePagerActivity extends AppCompatActivity {
     }
 
     private ViewPager mViewPager;
+    private List<Crime> mCrimes;
     private int mPosition;
 
     @Override
@@ -46,25 +47,25 @@ public class CrimePagerActivity extends AppCompatActivity {
         super.onStart();
 
         mViewPager = findViewById(R.id.crime_view_pager);
-        final List<Crime> crimes = CrimeLab.get(this).getCrimes();
+        mCrimes = CrimeLab.get(this).getCrimes();
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
             public Fragment getItem(int position) {
-                Crime crime = crimes.get(position);
+                Crime crime = mCrimes.get(position);
                 return CrimeFragment.newInstance(crime.getId());
             }
 
             @Override
             public int getCount() {
-                return crimes.size();
+                return mCrimes.size();
             }
 
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
-                return crimes.get(position).getTitle();
+                return mCrimes.get(position).getTitle();
             }
         });
 
@@ -75,5 +76,17 @@ public class CrimePagerActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_POSITION, mViewPager.getCurrentItem());
+    }
+
+    @Override
+    public void goToFirstPage() {
+        mPosition = 0;
+        mViewPager.setCurrentItem(mPosition);
+    }
+
+    @Override
+    public void goToLastPage() {
+        mPosition = mCrimes.size() - 1;
+        mViewPager.setCurrentItem(mPosition);
     }
 }

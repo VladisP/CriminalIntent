@@ -1,5 +1,6 @@
 package com.example.criminalintent;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,11 +28,14 @@ public class CrimeFragment extends Fragment {
     private static final String ARG_CRIME_ID = "crime_id";
 
     private Crime mCrime;
+    private PagerListener mPagerListener;
 
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
     private CheckBox mPoliceCheckBox;
+    private ImageButton mFirstImageButton;
+    private ImageButton mLastImageButton;
 
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
@@ -39,6 +44,12 @@ public class CrimeFragment extends Fragment {
         CrimeFragment crimeFragment = new CrimeFragment();
         crimeFragment.setArguments(args);
         return crimeFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mPagerListener = (PagerListener) context;
     }
 
     @Override
@@ -96,5 +107,34 @@ public class CrimeFragment extends Fragment {
                 mCrime.setRequiresPolice(isChecked);
             }
         });
+
+        mFirstImageButton = view.findViewById(R.id.first_page_button);
+        mFirstImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPagerListener.goToFirstPage();
+            }
+        });
+
+        mLastImageButton = view.findViewById(R.id.last_page_button);
+        mLastImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPagerListener.goToLastPage();
+            }
+        });
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mPagerListener = null;
+    }
+
+    public interface PagerListener {
+
+        void goToFirstPage();
+
+        void goToLastPage();
     }
 }
