@@ -48,7 +48,9 @@ public class CrimeListFragment extends Fragment {
         void bind(Crime crime) {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(DateFormat.getDateInstance().format(mCrime.getDate()));
+            String date = DateFormat.getDateInstance().format(mCrime.getDate());
+            String time = DateFormat.getTimeInstance(DateFormat.SHORT).format(mCrime.getDate());
+            mDateTextView.setText(date + " " + time);
             mSolvedImageView.setImageResource(crime.isSolved() ? R.drawable.ic_smile_man_green_24dp : R.drawable.ic_sad_man_red_24dp);
         }
 
