@@ -10,4 +10,8 @@
     <string name="to_last_page">К последнему элементу</string>
     <string name="date_picker_title">Дата нарушения:</string>
     <string name="time_picker_title">Время нарушения:</string>
+    <string name="new_crime">Новое нарушение</string>
+    <string name="show_subtitle">Показать подзаголовок</string>
+    <string name="hide_subtitle">Скрыть подзаголовок</string>
+    <string name="subtitle_format">%1$d crimes</string>
 </resources>
