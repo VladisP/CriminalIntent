@@ -26,18 +26,15 @@ public class CrimeLab {
     private CrimeLab(Context context) {
         mCrimeHashMap = new HashMap<>();
         mCrimes = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Нарушение #" + i);
-            crime.setSolved(i % 2 == 0);
-            crime.setRequiresPolice((i % 2 != 0) && (i % 5 == 0));
-            mCrimeHashMap.put(crime.getId(), crime);
-            mCrimes.add(crime);
-        }
     }
 
     public List<Crime> getCrimes() {
         return mCrimes;
+    }
+
+    public void addCrime(Crime crime) {
+        mCrimeHashMap.put(crime.getId(), crime);
+        mCrimes.add(crime);
     }
 
     public Crime getCrime(UUID id) {
