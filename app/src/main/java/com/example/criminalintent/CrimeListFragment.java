@@ -29,6 +29,7 @@ public class CrimeListFragment extends Fragment {
 
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private TextView mPlaceholderTextView;
 
     private boolean mIsSubtitleVisible;
 
@@ -135,6 +136,7 @@ public class CrimeListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mPlaceholderTextView = view.findViewById(R.id.empty_list_text);
         mCrimeRecyclerView = view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -202,6 +204,14 @@ public class CrimeListFragment extends Fragment {
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
             mAdapter.notifyDataSetChanged();
+        }
+
+        if (mAdapter.getItemCount() == 0) {
+            mCrimeRecyclerView.setVisibility(View.GONE);
+            mPlaceholderTextView.setVisibility(View.VISIBLE);
+        } else {
+            mCrimeRecyclerView.setVisibility(View.VISIBLE);
+            mPlaceholderTextView.setVisibility(View.GONE);
         }
 
         updateSubtitle();
