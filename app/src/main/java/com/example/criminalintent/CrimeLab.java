@@ -37,6 +37,17 @@ public class CrimeLab {
         mCrimes.add(crime);
     }
 
+    public void deleteCrime(Crime crime) {
+        mCrimeHashMap.remove(crime.getId());
+
+        for (int i = 0; i < mCrimes.size(); i++) {
+            if (mCrimes.get(i).getId() == crime.getId()) {
+                mCrimes.remove(i);
+                break;
+            }
+        }
+    }
+
     public Crime getCrime(UUID id) {
         return mCrimeHashMap.get(id);
     }
