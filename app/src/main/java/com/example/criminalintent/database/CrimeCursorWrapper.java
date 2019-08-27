@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 
 import com.example.criminalintent.database.CrimeDbSchema.CrimeTable;
-import com.example.criminalintent.entities.Crime;
+import com.example.criminalintent.model.Crime;
 
 import java.util.Date;
 import java.util.UUID;

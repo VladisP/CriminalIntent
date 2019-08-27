@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.example.criminalintent.single_crime;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,7 +24,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.criminalintent.entities.Crime;
+import com.example.criminalintent.dialog.DatePickerFragment;
+import com.example.criminalintent.R;
+import com.example.criminalintent.dialog.TimePickerFragment;
+import com.example.criminalintent.model.Crime;
+import com.example.criminalintent.model.CrimeLab;
 
 import java.text.DateFormat;
 import java.util.Calendar;

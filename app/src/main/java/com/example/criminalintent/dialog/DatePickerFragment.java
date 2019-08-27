@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.example.criminalintent.dialog;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
+import com.example.criminalintent.R;
 
 import java.util.Calendar;
 import java.util.Date;

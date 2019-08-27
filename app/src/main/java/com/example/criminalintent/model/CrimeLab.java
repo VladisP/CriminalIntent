@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.example.criminalintent.model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.criminalintent.database.CrimeBaseHelper;
 import com.example.criminalintent.database.CrimeCursorWrapper;
 import com.example.criminalintent.database.CrimeDbSchema.CrimeTable.Cols;
-import com.example.criminalintent.entities.Crime;
 
 import java.util.ArrayList;
 import java.util.List;

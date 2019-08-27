@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.example.criminalintent.list_crimes;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.criminalintent.entities.Crime;
+import com.example.criminalintent.R;
+import com.example.criminalintent.model.Crime;
+import com.example.criminalintent.model.CrimeLab;
+import com.example.criminalintent.single_crime.CrimePagerActivity;
 
 import java.text.DateFormat;
 import java.util.List;
