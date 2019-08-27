@@ -115,6 +115,10 @@ public class CrimeListFragment extends Fragment {
         public int getItemViewType(int position) {
             return (mCrimes.get(position).isRequiresPolice()) ? POLICE_TYPE : DEFAULT_TYPE;
         }
+
+        public void setCrimes(List<Crime> crimes) {
+            mCrimes = crimes;
+        }
     }
 
     @Override
@@ -197,12 +201,15 @@ public class CrimeListFragment extends Fragment {
     }
 
     private void updateUI() {
+
+        CrimeLab crimeLab = CrimeLab.get(getActivity());
+        List<Crime> crimes = crimeLab.getCrimes();
+
         if (mAdapter == null) {
-            CrimeLab crimeLab = CrimeLab.get(getActivity());
-            List<Crime> crimes = crimeLab.getCrimes();
             mAdapter = new CrimeAdapter(crimes);
             mCrimeRecyclerView.setAdapter(mAdapter);
         } else {
+            mAdapter.setCrimes(crimes);
             mAdapter.notifyDataSetChanged();
         }
 
